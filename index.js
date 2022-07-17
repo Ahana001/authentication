@@ -8,8 +8,6 @@ const port = process.env.PORT;
 const host = 'localhost';
 const authRouter = require('./routes/route');
 const logger = require('./logs/logger')("main");
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 
 app.use(cookieParser());
 app.use(express.json());
@@ -26,11 +24,6 @@ app.get('/smoothies', authValidation, (req, res) => {
 
 app.use(authRouter);
 
-app.use(
-    '/api-docs',
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocument)
-);
 
 app.use((req, res, next) => {
     res.status(404).render('404');
