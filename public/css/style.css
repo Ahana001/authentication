@@ -258,4 +258,7 @@ h1{
     margin-left: 5px;
     padding: 3px 10px;
     }
+   .home-container .home-heading a{
+    width: 80%
+    }
 }
