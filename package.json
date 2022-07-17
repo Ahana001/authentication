@@ -30,7 +30,7 @@
     "mongoose": "^6.4.4",
     "validator": "^13.7.0",
     "winston": "^3.8.1",
-    "winston-daily-rotate-file": "^4.7.1"
+    "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {},
   "description": ""

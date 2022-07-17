@@ -1,23 +1,21 @@
 const winston = require('winston');
-require('winston-daily-rotate-file');
-
-const transport = new winston.transports.DailyRotateFile({
-    filename: 'logs/server-%DATE%.log',
-    datePattern: 'YYYY-MM-DD-HH',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d'
-});
+require('winston-mongodb');
 
 const userLogger = function (route) {
     return winston.createLogger({
         transports: [
-            transport],
-        format: winston.format.printf(
-            (info) => {
-                let message = `${info.level.toUpperCase()} | ${[info.timestamp]} |  ${route}.log | ${info.message}`;
-                return message;
-            })
+            winston.add(new winston.transports.MongoDB({
+                collection: "userlogs",
+                db: process.env.MONGO_URI,
+                options: { useNewUrlParser: true, useUnifiedTopology: true },
+                expireAfterSeconds: 60 * 60 * 24
+            }))],
+        format:
+            winston.format.printf(
+                (info) => {
+                    let message = `${info.level.toUpperCase()} | ${[info.timestamp]} |  ${route}.log | ${info.message}`;
+                    return message;
+                })
     });
 }
 

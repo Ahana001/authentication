@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const authValidation = require('./middlewares/auth.validation');
 const app = express();
 const port = process.env.PORT;
-const host = 'localhost';
 const authRouter = require('./routes/route');
 const logger = require('./logs/logger')("main");
 
@@ -30,5 +29,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(port, () => {
-    logger.info(`server started on HOST: ${host} PORT: ${port}`)
+    logger.info(`server started on PORT: ${port}`)
 });
