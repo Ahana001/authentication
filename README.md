@@ -14,6 +14,7 @@ Step 3: Put your credentials in the .env file.
     DB_USER=
     DB_PASS=
     TOKEN_SECRET=
+    MONGO_URI=
 
 Step 4: Start the API by
 
