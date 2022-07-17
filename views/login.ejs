@@ -1,0 +1,65 @@
+<%- include("partials/header"); -%> <%- include('partials/navbar'); -%>
+
+<div class="container">
+  <form id="form">
+    <h2>Login</h2>
+    <div class="form-container">
+      <div class="form-control">
+        <i class="fa-solid fa-envelope icon"></i>
+        <input
+          type="text"
+          placeholder="Email ID"
+          id="email"
+          autocomplete="off"
+        />
+        <small id="error-email"></small>
+      </div>
+      <div class="form-control">
+        <i class="fa-solid fa-lock icon"></i>
+        <input
+          type="password"
+          placeholder="Password"
+          id="password"
+          autocomplete="off"
+        />
+        <small id="error-password"></small>
+      </div>
+
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </div>
+  </form>
+  <div class="image">
+    <img src="images/login.svg" />
+  </div>
+</div>
+<script>
+  const form = document.querySelector("#form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.email.value;
+    const password = form.password.value;
+    const errMsgEmail = document.querySelector("#error-email");
+    const errMsgPass = document.querySelector("#error-password");
+    errMsgEmail.textContent = " ";
+    errMsgPass.textContent = " ";
+
+    try {
+      let responce = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+      responce = await responce.json();
+      if (responce.errors) {
+        errMsgEmail.textContent = responce.errors.email;
+        errMsgPass.textContent = responce.errors.password;
+      }
+      if (responce.id) {
+        location.assign("/smoothies");
+      }
+    } catch (error) {}
+  });
+</script>
+<%- include("partials/footer"); -%>
